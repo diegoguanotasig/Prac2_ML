@@ -10,7 +10,7 @@ website:
       - href: index.qmd
         text: Home
       - href: mdg.qmd
-        text: MIDTERM
+        text: Practic2
        
 format:
   html:
