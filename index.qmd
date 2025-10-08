@@ -1,0 +1,9 @@
+---
+title: "PRACTICAS"
+author: "Diego Guanotasig"
+date: "04-10-25"
+format: html
+jupyter: python3
+---
+
+

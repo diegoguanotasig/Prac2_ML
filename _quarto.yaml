@@ -1,0 +1,22 @@
+project:
+  type: website
+  output-dir: docs  # Cambiar de _site a docs
+  resources: data/*.csv   # incluir todos los CSV dentro de la carpeta data/ 
+
+website:
+  title: "Machine Learning"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: mdg.qmd
+        text: MIDTERM
+       
+format:
+  html:
+    theme: cosmo
+    toc: true
+    code-fold: true
+    fig-align: center
+    embed-resources: true
+ 
