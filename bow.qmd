@@ -38,7 +38,7 @@ vectorizer.get_feature_names_out()
 Muestra cada fila un documento y cada columna una palabra
 
 ```{python}
-X
+df = pd.DataFrame.sparse.from_spmatrix(X)
 ```
 
 
