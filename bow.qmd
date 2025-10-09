@@ -1,0 +1,44 @@
+---
+title: "BOW JUEVES 09"
+format: html
+
+---
+
+```{python}
+from sklearn.feature_extraction.text import CountVectorizer
+import pandas as pd
+import nltk
+nltk.download('stopwords')
+from nltk.corpus import stopwords
+```
+
+# Dataset
+```{python}
+corpus = [
+    "Machine learning is fun",
+    "Machine learning is part of AI"
+    "I love machin learning"
+    "I love IA"
+]
+```
+
+```{python}
+vectorizer = CountVectorizer()
+```
+
+```{python}
+X = vectorizer.fit_transform(corpus)
+```
+
+```{python}
+vectorizer.get_feature_names_out()
+```
+
+# Matriz ocurrecias
+Muestra cada fila un documento y cada columna una palabra
+
+```{python}
+X
+```
+
+

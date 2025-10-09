@@ -11,7 +11,20 @@ website:
         text: Home
       - href: mdg.qmd
         text: Practic2
-       
+  
+  sidebar:
+    style: "docked"
+    search: true
+    contents:
+      - text: "Welcome"
+        href: index.qmd
+      - section: "Introduction to ML"
+        contents:
+          - mdg.qmd
+      - section: "Natural Language Processing (NLP)"
+        contents:
+          - bow.qmd
+
 format:
   html:
     theme: cosmo
