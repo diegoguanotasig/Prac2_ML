@@ -1,7 +1,7 @@
 ---
 title: "BOW JUEVES 09"
 format: html
-
+code-fold: false
 ---
 
 ```{python}
@@ -10,26 +10,78 @@ import pandas as pd
 import nltk
 nltk.download('stopwords')
 from nltk.corpus import stopwords
+from nltk import pos_tag
+from nltk import word_tokenize
+from nltk import WordNetLemmatizer
+from nltk.corpus import wordnet
+
+lemmatizer = WordNetLemmatizer()
+nltk.download('wordnet') # necessary for lemmatization
 ```
 
 # Dataset
 ```{python}
 corpus = [
-    "Machine learning is fun",
-    "Machine learning is part of AI"
-    "I love machin learning"
-    "I love IA"
+    "Machine learning is all fun 1980 :)",
+    "Machine learning is part of AI AI"
+    "I am loving 🙁 machin learning"
+    "I love IA and Machine Learning"
 ]
 ```
 
 ```{python}
+stop_words = stopwords.words("english")
 vectorizer = CountVectorizer()
 ```
 
+# Ejemplo de funcion de limpieza
+
 ```{python}
-X = vectorizer.fit_transform(corpus)
+
+def get_wordnet_pos(treebank_tag):
+    if treebank_tag.startswith('J'):
+        return wordnet.ADJ
+    elif treebank_tag.startswith('V'):
+        return wordnet.VERB
+    elif treebank_tag.startswith('N'):
+        return wordnet.NOUN
+    elif treebank_tag.startswith('R'):
+        return wordnet.ADV
+    else:
+        return wordnet.NOUN
+
+def preprocessing_document(doc):
+   # minusculas
+   doc = doc.lower()
+    # tokenizar
+   tokens = word_tokenize(doc)
+    # lematizacion
+   tagged_tokens = pos_tag(tokens)
+
+    # filtrar numeros
+   filtered_tokens = [(word,pos) for (word,pos) in tagged_tokens if word.isalpha()]
+
+    # lematizar usando pos
+   lemmatized_words = [lemmatizer.lemmatize(word, get_wordnet_pos(pos))
+   for word, pos in filtered_tokens]
+
+   return " ".join(lemmatized_words)
 ```
 
+# PREPROCESAMIENTO MANUAL
+```{python}
+for doc in corpus:
+    r = preprocessing_document(doc)
+    print(f"doc: {doc}, preprocesamiento: {r}") 
+```
+
+# FIT TRANSFORM
+```{python}
+corpus_cleaned = [preprocessing_document(doc) for doc in corpus]
+X = vectorizer.fit_transform(corpus_cleaned)
+```
+
+# OBTENER PALABRAS FINALES
 ```{python}
 vectorizer.get_feature_names_out()
 ```
@@ -38,7 +90,7 @@ vectorizer.get_feature_names_out()
 Muestra cada fila un documento y cada columna una palabra
 
 ```{python}
-df = pd.DataFrame.sparse.from_spmatrix(X)
+df = pd.DataFrame.sparse.from_spmatrix(X,columns=vectorizer.get_feature_names_out())
+df
 ```
-
 
